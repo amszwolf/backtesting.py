@@ -247,15 +247,15 @@ def plot(*, results: pd.Series,
     if is_datetime_index:
         fig_ohlc.xaxis.formatter = CustomJSTickFormatter(
             args=dict(axis=fig_ohlc.xaxis[0],
-                      formatter=DatetimeTickFormatter(days='%a, %d %b',
-                                                      months='%m/%Y'),
+                      formatter=DatetimeTickFormatter(days='%d %b',
+                                                    months="%b'%y"),
                       source=source),
             code='''
-this.labels = this.labels || formatter.doFormat(ticks
-                                                .map(i => source.data.datetime[i])
-                                                .filter(t => t !== undefined));
-return this.labels[index] || "";
-        ''')
+            this.labels = this.labels || formatter.doFormat(ticks
+                                                        .map(i => source.data.datetime[i])
+                                                        .filter(t => t !== undefined));
+            return this.labels[index] || "";
+            ''')
 
     NBSP = '\N{NBSP}' * 4  # noqa: E999
     ohlc_extreme_values = df[['High', 'Low']].copy(deep=False)
