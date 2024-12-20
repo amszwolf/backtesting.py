@@ -247,8 +247,13 @@ def plot(*, results: pd.Series,
     if is_datetime_index:
         fig_ohlc.xaxis.formatter = CustomJSTickFormatter(
             args=dict(axis=fig_ohlc.xaxis[0],
-                      formatter=DatetimeTickFormatter(days='%d %b',
-                                                    months="%b'%y"),
+                      formatter=DatetimeTickFormatter(
+                          days='%d %b',
+                          months='%b %Y',
+                          years='%Y',
+                          hours='%H:%M',
+                          minutes='%H:%M',
+                          seconds='%H:%M:%S'),
                       source=source),
             code='''
             this.labels = this.labels || formatter.doFormat(ticks
